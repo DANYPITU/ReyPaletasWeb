@@ -1,51 +1,7 @@
 {
     "$schema": "https://openapi.vercel.sh/vercel.json",
-
-    "services": {
-        "frontend": {
-            "root": "ReyPaletasFront/",
-            "framework": "vite"
-        },
-
-        "backend": {
-            "root": "ReyPaletasBack/",
-            "framework": "express"
-        }
-    },
-
-    "rewrites": [
-        {
-            "source": "/public/(.*)",
-            "destination": {
-                "service": "backend"
-            }
-        },
-        {
-            "source": "/private/(.*)",
-            "destination": {
-                "service": "backend"
-            }
-        },
-        {
-            "source": "/health",
-            "destination": {
-                "service": "backend"
-            }
-        },
-        {
-            "source": "/ping",
-            "destination": {
-                "service": "backend"
-            }
-        },
-        {
-            "source": "/(.*)",
-            "destination": {
-                "service": "frontend"
-            }
-        }
-    ],
-
+    "framework": "express",
+    "entrypoint": "src/index.js",
     "headers": [
         {
             "source": "/(public|private|health|ping)(.*)",
@@ -69,7 +25,6 @@
             ]
         }
     ],
-
     "crons": [
         {
             "path": "/ping",

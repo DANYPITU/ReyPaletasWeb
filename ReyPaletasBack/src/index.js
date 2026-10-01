@@ -68,12 +68,17 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Error interno del servidor' });
 });
 
-const server = app.listen(PORT, () => {
+const isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+
+const server = isServerless ? null : app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
 const shutdown = (signal) => {
   console.log(`\n${signal} received. Closing server...`);
+  if (!server) {
+    process.exit(0);
+  }
   server.close(() => {
     console.log('Server closed.');
     process.exit(0);
