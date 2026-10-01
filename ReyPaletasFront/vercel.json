@@ -6,7 +6,7 @@
   "rewrites": [
     {
       "source": "/ping",
-      "destination": "https://REY-PALETAS-BACK.vercel.app/ping"
+      "destination": "https://rey-paletas-web-back.vercel.app/ping"
     },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
