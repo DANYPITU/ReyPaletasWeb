@@ -1,0 +1,483 @@
+# AGENTS.md - Agentic Coding Guidelines
+
+This file provides guidelines for AI agents working in this repository.
+
+## Project Overview
+
+- **Project Name**: Rey Paletas Frontend
+- **Tech Stack**: React 19, Vite 7, React Router 7, Tailwind CSS 4
+- **Language**: JavaScript (ES2020+), JSX
+- **Notifications**: Sileo (https://sileo.aaryan.design)
+
+---
+
+## Commands
+
+### Development & Build
+```bash
+npm run dev          # Start Vite dev server
+npm run build        # Production build to dist/
+npm run preview      # Preview production build
+```
+
+### Linting
+```bash
+npm run lint         # Run ESLint on all files
+npm run lint -- --fix  # Auto-fix linting issues
+npx eslint <file-path> --fix  # Lint specific file
+```
+
+**Note**: No test framework is configured. Do not add tests without consulting the user first.
+
+---
+
+## Dependencies
+
+### Required
+```bash
+npm install sileo
+```
+
+---
+
+## Environment Variables
+
+Create a `.env` file in the root directory (copy from `.env.example`):
+
+```bash
+# Backend API URL (optional)
+VITE_API_URL=http://localhost:3000
+```
+
+**Important:** Never commit `.env` files to version control. Only `.env.example` should be tracked.
+
+### No Supabase credentials in the frontend
+
+This app has **no** `VITE_SUPABASE_URL` and **no** `VITE_SUPABASE_ANON_KEY`. Do not re-add them and do not
+create a Supabase client. The Vite bundle is publicly readable, so shipping a Supabase URL + anon key
+exposes the project and lets any visitor attempt writes against the Supabase API.
+
+Images are uploaded through the backend instead:
+
+```javascript
+import { uploadImage, uploadMultipleImages, deleteImage } from './services/storage'
+
+// bucket must be one of: Products, Announcements, Franchises, HeroImages, Associates
+const url = await uploadImage(file, 'Products')
+const urls = await uploadMultipleImages([fileA, fileB], 'Franchises')
+```
+
+Limits: 4 MB per file, `image/*` only. Do not set `Content-Type` manually on the upload request.
+
+---
+
+## Notifications (Sileo)
+
+This project uses **Sileo** for toast notifications.
+
+### Installation
+```bash
+npm install sileo
+```
+
+### Usage
+
+#### In Admin Layout (all admin pages)
+```jsx
+import { Toaster } from 'sileo'
+
+// In AdminLayout.jsx
+<Toaster 
+  position="top-right"
+  options={{
+    fill: "#1f2937",
+    roundness: 12,
+    styles: {
+      title: "text-white! text-sm font-semibold",
+      description: "text-white/70! text-xs",
+      badge: "bg-white/10!",
+      button: "bg-primary! hover:bg-primary/80! text-white!",
+    },
+  }}
+/>
+```
+
+#### Triggering Notifications
+```jsx
+import { sileo } from 'sileo'
+
+// Success
+sileo.success({ title: 'Producto creado exitosamente' })
+
+// Error
+sileo.error({ title: 'Error al eliminar producto' })
+
+// Info
+sileo.info({ title: 'Información importante' })
+
+// With action button
+sileo.info({
+  title: 'Los productos han sido actualizados',
+  action: { 
+    label: 'Recargar', 
+    onClick: () => window.location.reload() 
+  }
+})
+```
+
+---
+
+## Map Component (React Leaflet)
+
+This project uses **React Leaflet** for maps (previously react-google-maps). No Google Maps API key required.
+
+### Installation
+```bash
+npm install leaflet react-leaflet
+```
+
+### Basic Map Component Example
+```jsx
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css'
+
+const position = [51.505, -0.09]
+
+function MapView({ lat, lng }) {
+  const mapPosition = [lat, lng]
+
+  return (
+    <MapContainer 
+      center={mapPosition} 
+      zoom={13} 
+      scrollWheelZoom={false}
+      className="h-full w-full"
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <Marker position={mapPosition}>
+        <Popup>
+          A pretty CSS3 popup. <br /> Easily customizable.
+        </Popup>
+      </Marker>
+    </MapContainer>
+  )
+}
+
+export default MapView
+```
+
+### Important Notes
+- Import Leaflet CSS in the component: `import 'leaflet/dist/leaflet.css'`
+- Fix Leaflet marker icon issue in React by importing marker icons manually
+- Use OpenStreetMap tiles (free, no API key needed)
+
+---
+
+## Routing (React Router)
+
+Routes should be defined in `App.jsx` with different layouts for public website and admin panel.
+
+### Route Structure Example
+```jsx
+import { Routes, Route } from 'react-router-dom'
+import PublicLayout from './layouts/PublicLayout'
+import AdminLayout from './layouts/AdminLayout'
+import Home from './pages/public/Home'
+import Products from './pages/public/Products'
+import AdminDashboard from './pages/admin/Dashboard'
+import AdminProducts from './pages/admin/Products'
+import AdminAnnouncements from './pages/admin/Announcements'
+import AdminFranchises from './pages/admin/Franchises'
+
+function App() {
+  return (
+    <Routes>
+      {/* Public routes with public layout */}
+      <Route element={<PublicLayout />}>
+        <Route path='/' element={<Home />} />
+        <Route path='/sabores' element={<Products />} />
+        <Route path='/compras' element={<ShoppingCart />} />
+        <Route path='/quienes-somos' element={<QuiienesSomos />} />
+        <Route path='/puntos-de-venta' element={<PuntosDeVenta />} />
+        <Route path='/franquicias' element={<Franquicias />} />
+        <Route path='/contactanos' element={<Contact />} />
+      </Route>
+
+      {/* Admin routes with admin layout */}
+      <Route path='/admin' element={<AdminLayout />}>
+        <Route index element={<AdminDashboard />} />
+        <Route path='productos' element={<AdminProducts />} />
+        <Route path='avisos' element={<AdminAnnouncements />} />
+        <Route path='franquicias' element={<AdminFranchises />} />
+      </Route>
+    </Routes>
+  )
+}
+
+export default App
+```
+
+### Key Points
+- Use `Route` component with `element` prop for the component
+- Wrap related routes in a Layout component for shared navigation/footer
+- Public and admin layouts should be completely separate
+- Admin routes typically start with `/admin` prefix
+
+---
+
+## Admin Pages
+
+### Dashboard (`/admin`)
+- Shows statistics: products count, announcements count, franchises count
+- Uses `privateApi.getProducts()`, `privateApi.getAnnouncements()`, `privateApi.getFranchises()`
+
+### Products (`/admin/productos`)
+- Full CRUD for products
+- Category management via modal
+- Product variants support
+- Notifications on create/update/delete
+
+### Announcements (`/admin/avisos`)
+- Full CRUD for announcements
+- Live preview of how it will look on public site
+- Notifications on create/update/delete
+
+### Franchises (`/admin/franquicias`)
+- Full CRUD for franchises
+- City management via modal
+- Coordinates input as single field: "lat,lng" (e.g., "-1.478645,-77.999092")
+- Notifications on create/update/delete
+
+---
+
+## API Endpoints
+
+### Private Endpoints (require auth)
+
+| Resource | GET | POST | PUT | DELETE |
+|----------|-----|------|-----|--------|
+| Categories | `/private/categories` | `/private/categories` | `/private/categories/:id` | `/private/categories/:id` |
+| Products | `/private/products` | `/private/products` | `/private/products/:id` | `/private/products/:id` |
+| Product Variants | `/private/product-variants` | `/private/product-variants` | `/private/product-variants/:id` | `/private/product-variants/:id` |
+| Cities | `/private/cities` | `/private/cities` | `/private/cities/:id` | `/private/cities/:id` |
+| Franchises | `/private/franchises` | `/private/franchises` | `/private/franchises/:id` | `/private/franchises/:id` |
+| Announcements | `/private/announcements` | `/private/announcements` | `/private/announcements/:id` | `/private/announcements/:id` |
+
+### Storage Endpoints (require auth, multipart)
+
+| Action | Endpoint | Payload |
+|--------|----------|---------|
+| Upload one image | `POST /private/storage/upload` | `multipart`: `file`, `bucket`, `folder?` |
+| Upload many images | `POST /private/storage/upload-multiple` | `multipart`: `files[]`, `bucket`, `folder?` |
+| Delete an image | `DELETE /private/storage` | JSON: `{ bucket, path }` |
+
+Allowed buckets: `Products`, `Announcements`, `Franchises`, `HeroImages`, `Associates`.
+Max 4 MB per file, `image/*` only. Deletion uses the `path` returned by the upload, not the public URL.
+
+### API Service Usage
+```javascript
+import { privateApi } from './services/api'
+
+// GET
+const products = await privateApi.getProducts()
+const categories = await privateApi.getCategories()
+const franchises = await privateApi.getFranchises()
+const announcements = await privateApi.getAnnouncements()
+
+// POST
+await privateApi.createProduct(data)
+await privateApi.createFranchise(data)
+await privateApi.createAnnouncement(data)
+
+// PUT
+await privateApi.updateProduct(id, data)
+await privateApi.updateFranchise(id, data)
+await privateApi.updateAnnouncement(id, data)
+
+// DELETE
+await privateApi.deleteProduct(id)
+await privateApi.deleteFranchise(id)
+await privateApi.deleteAnnouncement(id)
+```
+
+---
+
+## Code Style Guidelines
+
+### File Organization
+```
+src/
+├── components/     # Reusable UI components
+├── pages/          # Route page components
+│   ├── public/     # Public pages (Home, Products, etc.)
+│   └── admin/     # Admin pages (Dashboard, Products, etc.)
+├── layouts/        # Layout components (PublicLayout, AdminLayout)
+├── hooks/          # Custom React hooks
+├── services/       # API calls and business logic
+├── utils/          # Helper functions
+├── context/        # React context providers
+└── assets/         # Static assets
+```
+
+### Import Order
+1. React built-ins (`react`, `react-dom`, `react-router-dom`)
+2. External libraries (npm packages)
+3. Internal modules (relative imports)
+4. CSS/style imports
+
+### Naming Conventions
+- **Components**: PascalCase (`UserProfile`, `ProductCard`)
+- **Hooks**: camelCase with `use` prefix (`useAuth`, `useFetch`)
+- **Utilities**: camelCase (`formatDate`)
+- **Constants**: UPPER_SNAKE_CASE (`MAX_UPLOAD_SIZE`)
+- **Files**: kebab-case (`api-client.js`), PascalCase for components
+
+### JSX Formatting
+- Self-closing tags: `<Component />`
+- Use parentheses for multi-line returns
+
+```jsx
+function UserCard({ user, onEdit }) {
+  return (
+    <div className="card">
+      <h2>{user.name}</h2>
+      <Button onClick={onEdit}>Edit</Button>
+    </div>
+  )
+}
+```
+
+### React Hooks
+- Call hooks only at top level
+- Name custom hooks with `use` prefix
+- Use `useCallback` for functions passed as props
+
+```jsx
+function useUserData(userId) {
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchUser(userId).then(setUser).finally(() => setLoading(false))
+  }, [userId])
+
+  return { user, loading }
+}
+```
+
+### Error Handling
+- Use try-catch for async operations
+- Display user-friendly error messages
+- Use Sileo notifications for user feedback
+
+```jsx
+async function fetchData() {
+  try {
+    const response = await api.get('/data')
+    return response.data
+  } catch (error) {
+    console.error('Failed to fetch data:', error)
+    sileo.error({ title: 'Error al cargar datos' })
+    throw new Error('Unable to load data. Please try again.')
+  }
+}
+```
+
+### CSS/Tailwind
+- Use Tailwind utility classes
+- Avoid inline styles
+
+```jsx
+// Good
+<button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Click</button>
+
+// Avoid
+<button style={{ padding: '16px', backgroundColor: 'blue' }}>Click</button>
+```
+
+---
+
+## ESLint Configuration
+
+Uses `@eslint/js`, `eslint-plugin-react-hooks`, and `eslint-plugin-react-refresh`.
+
+Key rules:
+- `no-unused-vars`: Errors on unused variables (except those starting with `_`)
+- React hooks rules enforced
+- React refresh enabled for HMR compatibility
+
+---
+
+## Git Workflow
+
+- **Commit messages**: Clear, descriptive, start with verb ("Add feature", "Fix bug")
+- **Branch naming**: `feature/`, `fix/`, `refactor/`, `docs/`
+
+---
+
+## Common Patterns
+
+### Conditional Rendering
+```jsx
+{isLoading && <Spinner />}
+{error && <ErrorMessage message={error} />}
+{data && <DataDisplay data={data} />}
+```
+
+### List Rendering
+```jsx
+{items.map(item => (
+  <ItemCard key={item.id} item={item} />
+))}
+```
+
+### Form Handling
+```jsx
+const [formData, setFormData] = useState({})
+
+function handleChange(e) {
+  const { name, value } = e.target
+  setFormData(prev => ({ ...prev, [name]: value }))
+}
+```
+
+---
+
+## When to Ask the User
+
+Before making significant changes, consult the user about:
+- Adding new dependencies
+- Setting up testing frameworks
+- Architectural changes
+- API modifications
+- New feature implementations affecting multiple files
+
+---
+
+## Installed Skills
+
+The following skills are available for this project. Use them when working on specific tasks:
+
+### vercel-react-best-practices
+**When to use:** When building React components, implementing state management, optimizing performance, or following React/Next.js conventions.
+
+### tailwind-design-system
+**When to use:** When creating reusable UI components, designing layouts, or establishing a consistent design system with Tailwind CSS.
+
+### shadcn-ui
+**When to use:** When building accessible, composable UI components. Provides patterns for creating components similar to shadcn/ui primitives.
+
+### javascript-typescript-jest
+**When to use:** When writing tests for frontend functionality. Note: No test framework is currently configured.
+
+---
+
+## Skill Usage Guidelines
+
+- **vercel-react-best-practices**: React performance optimization, hooks usage, component patterns
+- **tailwind-design-system**: Tailwind CSS organization, design tokens, responsive layouts
+- **shadcn-ui**: Component architecture, accessibility, composable UI patterns
+- **javascript-typescript-jest**: Testing patterns, test structure, mocking strategies

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rey-paletas-front.vercel.app/sitemap.xml

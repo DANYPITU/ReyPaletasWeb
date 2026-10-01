@@ -1,0 +1,31 @@
+{
+    "name": "reypaletasback",
+    "version": "1.0.0",
+    "description": "",
+    "homepage": "https://github.com/XAnthekiraX/ReyPaletasBack#readme",
+    "bugs": {
+        "url": "https://github.com/XAnthekiraX/ReyPaletasBack/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/XAnthekiraX/ReyPaletasBack.git"
+    },
+    "license": "ISC",
+    "author": "Anthekira",
+    "type": "commonjs",
+    "main": "src/index.js",
+    "scripts": {
+        "dev": "node --watch src/index.js",
+        "start": "node src/index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "@supabase/supabase-js": "^2.99.3",
+        "cors": "^2.8.6",
+        "dotenv": "^17.4.2",
+        "express": "^5.2.1",
+        "joi": "^18.0.2",
+        "multer": "^2.4.0",
+        "resend": "^6.9.4"
+    }
+}
