@@ -1,23 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-
-  "services": {
-    "frontend": {
-      "root": "ReyPaletasFront/",
-      "framework": "vite",
-      "buildCommand": "npm run build",
-      "outputDirectory": "dist",
-      "rewrites": [
-        { "source": "/(.*)", "destination": "/index.html" }
-      ]
-    },
-    "backend": {
-      "root": "ReyPaletasBack/",
-      "framework": "express",
-      "entrypoint": "src/index.js"
-    }
-  },
-
   "rewrites": [
     {
       "source": "/public/(.*)",
@@ -40,7 +22,6 @@
       "destination": { "service": "frontend" }
     }
   ],
-
   "crons": [
     {
       "path": "/ping",
