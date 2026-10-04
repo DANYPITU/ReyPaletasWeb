@@ -52,8 +52,8 @@ export default function Contact() {
         <meta name="description" content="Contáctanos para consultas, sugerencias o comentarios. Estamos disponibles para atenderte y resolver tus dudas sobre nuestros productos." />
         <meta property="og:title" content="Contáctanos - Rey Paletas" />
         <meta property="og:description" content="Contáctanos para consultas, sugerencias o comentarios." />
-        <meta property="og:url" content="https://rey-paletas-front.vercel.app/contactanos" />
-        <link rel="canonical" href="https://rey-paletas-front.vercel.app/contactanos" />
+        <meta property="og:url" content="https://www.reypaletas.com/contactanos" />
+        <link rel="canonical" href="https://www.reypaletas.com/contactanos" />
       </Helmet>
       <div className="min-h-screen bg-gradient-to-b from-secondary/20 to-white py-12 px-4">
       <div className="max-w-lg mx-auto">

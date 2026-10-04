@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { Helmet } from "react-helmet-async"
 import { motion } from 'motion/react'
 import { Icon } from '@iconify/react'
 
@@ -104,6 +105,7 @@ function Timeline() {
         />
       ))}
     </div>
+    </>
   )
 }
 
@@ -258,5 +260,6 @@ export default function QuiienesSomos() {
       <AlliancesSection />
       <PurposeSection />
     </div>
+    </>
   )
 }

@@ -526,8 +526,8 @@ export default function Franquicias() {
         <meta name="description" content="Convierte tu pasión por los helados en negocio. Conoce las franquicias disponibles de Rey Paletas en Ecuador y Únete a nuestra familia." />
         <meta property="og:title" content="Franquicias - Rey Paletas" />
         <meta property="og:description" content="Convierte tu pasión por los helados en negocio. Conoce nuestras franquicias disponibles." />
-        <meta property="og:url" content="https://rey-paletas-front.vercel.app/franquicias" />
-        <link rel="canonical" href="https://rey-paletas-front.vercel.app/franquicias" />
+        <meta property="og:url" content="https://www.reypaletas.com/franquicias" />
+        <link rel="canonical" href="https://www.reypaletas.com/franquicias" />
       </Helmet>
       <div className="min-h-screen bg-white">
       <style>{leafletStyles}</style>

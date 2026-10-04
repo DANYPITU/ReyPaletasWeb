@@ -322,8 +322,8 @@ export default function Products() {
                 <meta name="description" content="Descubre todos nuestros sabores de helados artesanales y paletas de crema. Explora nuestra variedad de productos premium." />
                 <meta property="og:title" content="Sabores - Rey Paletas | Helados Artesanales" />
                 <meta property="og:description" content="Descubre todos nuestros sabores de helados artesanales y paletas de crema." />
-                <meta property="og:url" content="https://rey-paletas-front.vercel.app/sabores" />
-                <link rel="canonical" href="https://rey-paletas-front.vercel.app/sabores" />
+                <meta property="og:url" content="https://www.reypaletas.com/sabores" />
+                <link rel="canonical" href="https://www.reypaletas.com/sabores" />
             </Helmet>
             <div className="max-w-7xl mx-auto px-4 py-12">
                 <h1 className="text-3xl md:text-4xl font-bold text-primary text-center mb-4">

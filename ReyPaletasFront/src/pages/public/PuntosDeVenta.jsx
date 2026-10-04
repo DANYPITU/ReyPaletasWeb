@@ -535,8 +535,8 @@ export default function PuntosDeVenta() {
         <meta name="description" content="Encuentra los puntos de venta de Rey Paletas en Ecuador. Heladerías y locales donde puedes comprar nuestros helados artesanales." />
         <meta property="og:title" content="Puntos de Venta - Rey Paletas" />
         <meta property="og:description" content="Encuentra los puntos de venta de Rey Paletas en Ecuador." />
-        <meta property="og:url" content="https://rey-paletas-front.vercel.app/puntos-de-venta" />
-        <link rel="canonical" href="https://rey-paletas-front.vercel.app/puntos-de-venta" />
+        <meta property="og:url" content="https://www.reypaletas.com/puntos-de-venta" />
+        <link rel="canonical" href="https://www.reypaletas.com/puntos-de-venta" />
       </Helmet>
       <div className="min-h-screen bg-linear-to-b from-primary/5 to-white flex justify-center items-center flex-col">
       <TabToggle activeTab={activeTab} onChangeTab={toggleTab} />

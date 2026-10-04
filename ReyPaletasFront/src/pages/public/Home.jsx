@@ -371,8 +371,8 @@ export default function Home() {
                 <meta name="description" content="Rey Paletas ofrece los mejores helados artesanales, paletas de crema y desserts congelados. Descubre nuestros sabores únicos en Ecuador." />
                 <meta property="og:title" content="Rey Paletas - Helados Artesanales" />
                 <meta property="og:description" content="Los mejores helados artesanales y paletas de crema. Descubre nuestros sabores únicos." />
-                <meta property="og:url" content="https://rey-paletas-front.vercel.app/" />
-                <link rel="canonical" href="https://rey-paletas-front.vercel.app/" />
+                <meta property="og:url" content="https://www.reypaletas.com/" />
+                <link rel="canonical" href="https://www.reypaletas.com/" />
             </Helmet>
             <HeroSection />
             <AnnouncementsSection />
