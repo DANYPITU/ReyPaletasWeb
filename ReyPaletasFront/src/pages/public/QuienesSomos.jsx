@@ -105,7 +105,6 @@ function Timeline() {
         />
       ))}
     </div>
-    </>
   )
 }
 
@@ -260,6 +259,5 @@ export default function QuiienesSomos() {
       <AlliancesSection />
       <PurposeSection />
     </div>
-    </>
   )
 }
