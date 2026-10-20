@@ -381,8 +381,8 @@ When the form is submitted, the message is sent to the backend service which pro
 
 Feedback:
 
-- On success, the page shows an inline confirmation banner and a Sileo toast, then clears the form.
-- On validation or network/API errors, it shows an inline alert and a Sileo error toast.
+- On success, the page shows an inline confirmation banner, then clears the form.
+- On validation or network/API errors, it shows an inline alert.
 - On `429 Too Many Requests`, it shows the server message, starts a countdown from `retryAfter`, and disables the submit button until the cooldown ends.
 
 Rate limit:

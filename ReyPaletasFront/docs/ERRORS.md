@@ -211,7 +211,7 @@ When the API returns `429`, the client receives:
 
 `services/api.js` copies `retryAfter` and `limit` onto the thrown `Error`. Components should:
 
-- show `error.message` to the user (inline alert and Sileo error toast);
+- show `error.message` to the user as an inline alert;
 - start a countdown of `retryAfter` seconds and disable the submit button until it reaches zero;
 - keep the form data so the user does not lose their message.
 
@@ -220,7 +220,6 @@ When the API returns `429`, the client receives:
   if (err.status === 429) {
     setCooldown(Number(err.retryAfter) || 900)
     setError(err.message)
-    sileo.error({ title: 'Límite de mensajes alcanzado', description: err.message })
   }
 }
 ```

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { publicApi } from '../../services/api'
-import { sileo } from 'sileo'
 import { CONTACT, CONTACT_RATE_LIMIT } from '../../config/contact'
 
 const formatCooldown = (seconds) => {
@@ -85,10 +84,6 @@ export default function Contact() {
     try {
       await publicApi.sendContact(formData)
       setSuccess('¡Mensaje enviado! Te responderemos pronto.')
-      sileo.success({
-        title: 'Mensaje enviado correctamente',
-        description: 'Te responderemos pronto.',
-      })
       setFormData({ name: '', email: '', message: '' })
     } catch (err) {
       if (err.status === 429) {
@@ -99,11 +94,9 @@ export default function Contact() {
 
         setCooldown(retryAfter)
         setRateLimitMessage(message)
-        sileo.error({ title: 'Límite de mensajes alcanzado', description: message })
       } else {
         const message = 'Error al enviar el mensaje. Intenta de nuevo.'
         setError(message)
-        sileo.error({ title: 'No se pudo enviar el mensaje', description: message })
       }
     } finally {
       setLoading(false)
