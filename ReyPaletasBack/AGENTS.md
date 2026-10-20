@@ -52,6 +52,8 @@ npm run lint -- --fix # Fix auto-fixable issues
 | GET | `/public/franchises/cities` | Cities list (returns `id` and `name`) |
 | GET | `/public/hero-images` | Hero images for homepage |
 | GET | `/public/associates` | Associates (empresas asociadas) |
+| GET | `/public/contact/rate-limit` | Current contact form rate limit config |
+| POST | `/public/contact` | Send contact email (rate limited: 3 per 15 min per IP by default) |
 | POST | `/public/login` | Admin login via Supabase Auth |
 
 ### Private Endpoints (requires Bearer token)
@@ -122,7 +124,7 @@ Rules:
 
 Install dependencies:
 ```bash
-npm install express @supabase/supabase-js joi dotenv cors multer
+npm install express @supabase/supabase-js joi dotenv cors multer express-rate-limit
 npm install --save-dev jest supertest eslint prettier eslint-config-prettier
 ```
 

@@ -6,6 +6,10 @@ const verifyToken = require('./middlewares/auth');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Vercel sits in front of the app, so the client IP comes from X-Forwarded-For.
+// Without this, the rate limiter would see the proxy IP for every visitor.
+app.set('trust proxy', 1);
+
 app.use(cors({
   origin: process.env.CORS_ORIGIN || '*',
   credentials: true,

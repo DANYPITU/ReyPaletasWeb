@@ -27,6 +27,7 @@ REST API Backend para ReyPaletas - Heladería artesanal.
 | 1.8 | GET    | [`/public/sales-points`](#18-get-publicsales-points)   | Listar puntos de venta | No            |
 | 1.9 | GET    | [`/public/associates`](#19-get-publicassociates)        | Empresas asociadas       | No            |
 | 1.10 | GET   | [`/ping`](#110-get-ping)                             | Ping keep-alive Supabase   | No            |
+| 1.11 | GET   | [`/public/contact/rate-limit`](#111-get-publiccontactrate-limit) | Consultar límite de envíos | No |
 
 ### Privado
 
@@ -106,6 +107,10 @@ Variables requeridas:
 - `SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_KEY`
 - `RESEND_API_KEY`
+- `FROM_EMAIL`
+- `CONTACT_EMAIL`
+- `CONTACT_RATE_LIMIT_MAX` (default: 3)
+- `CONTACT_RATE_LIMIT_WINDOW_MINUTES` (default: 15)
 - `PORT` (default: 3000)
 - `CORS_ORIGIN`
 
@@ -383,6 +388,22 @@ Envía un email de contacto.
 }
 ```
 
+**Límite de envíos:**
+
+- Máximo **3 mensajes cada 15 minutos por IP** (configurable con `CONTACT_RATE_LIMIT_MAX` y `CONTACT_RATE_LIMIT_WINDOW_MINUTES`).
+- Al exceder el límite responde `429 Too Many Requests` con las cabeceras estándar `RateLimit-*` y `Retry-After`.
+- El store de `express-rate-limit` es en memoria y por instancia. En Vercel frena el abuso normal, pero no es un límite global estricto entre varias instancias.
+
+**Respuesta 429:**
+
+```json
+{
+  "error": "Has alcanzado el límite de 3 mensajes. Intenta de nuevo en 15 minutos.",
+  "retryAfter": 900,
+  "limit": 3
+}
+```
+
 [Volver al índice](#tabla-de-contenidos)
 
 ---
@@ -461,6 +482,23 @@ Endpoint de keep-alive para prevenir la suspensión del proyecto Supabase free t
 {
   "status": "ok",
   "message": "Supabase ping successful"
+}
+```
+
+[Volver al índice](#tabla-de-contenidos)
+
+---
+
+### 1.11 GET /public/contact/rate-limit
+
+Devuelve la configuración vigente del límite del formulario de contacto. El frontend la usa para mostrar cuántos mensajes se pueden enviar sin duplicar valores.
+
+**Respuesta:**
+
+```json
+{
+  "max": 3,
+  "windowMinutes": 15
 }
 ```
 

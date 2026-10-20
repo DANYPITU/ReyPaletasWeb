@@ -49,6 +49,8 @@ class ApiClient {
         const error = await response.json().catch(() => ({}))
         const apiError = new Error(error.error || error.message || `HTTP ${response.status}`)
         apiError.status = response.status
+        apiError.retryAfter = error.retryAfter
+        apiError.limit = error.limit
         throw apiError
       }
 
@@ -140,6 +142,8 @@ export const publicApi = {
   getHeroImages: () => api.getPublic('/public/hero-images'),
 
   getAssociates: () => api.getPublic('/public/associates'),
+
+  getContactRateLimit: () => api.getPublic('/public/contact/rate-limit'),
 
   sendContact: (data) => api.postPublic('/public/contact', data),
 }

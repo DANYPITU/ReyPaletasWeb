@@ -57,6 +57,7 @@ This system serves as the backend for a web application, providing REST APIs to 
 
 - Send notifications
 - Send contact emails
+- Enforce a per-IP rate limit on the public contact form (default: 3 requests every 15 minutes)
 
 ---
 

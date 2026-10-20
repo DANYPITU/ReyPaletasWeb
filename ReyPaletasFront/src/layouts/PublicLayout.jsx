@@ -4,6 +4,7 @@ import SVG from "../assets/logo.svg?react";
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from 'motion/react'
 import { Icon } from '@iconify/react'
+import { Toaster } from 'sileo'
 import { useCart } from '../context/CartContext'
 import { CONTACT, getWhatsAppLink } from '../config/contact'
 
@@ -239,6 +240,19 @@ function ScrollToTop() {
 function PublicLayout() {
   return (
     <div className="min-h-screen flex flex-col">
+      <Toaster
+        position="top-right"
+        options={{
+          fill: "#1f2937",
+          roundness: 12,
+          styles: {
+            title: "text-white! text-sm font-semibold",
+            description: "text-white/70! text-xs",
+            badge: "bg-white/10!",
+            button: "bg-primary! hover:bg-primary/80! text-white!",
+          },
+        }}
+      />
       <Header />
       <main className="flex-grow">
         <ScrollToTop />

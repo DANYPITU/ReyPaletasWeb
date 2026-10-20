@@ -82,11 +82,11 @@ npm install sileo
 
 ### Usage
 
-#### In Admin Layout (all admin pages)
+#### In layouts (admin and public pages)
 ```jsx
 import { Toaster } from 'sileo'
 
-// In AdminLayout.jsx
+// Mounted in both AdminLayout.jsx and PublicLayout.jsx
 <Toaster 
   position="top-right"
   options={{

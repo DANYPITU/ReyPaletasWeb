@@ -9,6 +9,13 @@ export const CONTACT = {
   location: 'Ambato, Ecuador',
 }
 
+// Fallback values used until the backend reports its real configuration.
+// Must match CONTACT_RATE_LIMIT_MAX / CONTACT_RATE_LIMIT_WINDOW_MINUTES.
+export const CONTACT_RATE_LIMIT = {
+  max: 3,
+  windowMinutes: 15,
+}
+
 export const getWhatsAppLink = (message = '') => {
   const base = `https://wa.me/${CONTACT.whatsapp}`
   return message ? `${base}?text=${encodeURIComponent(message)}` : base

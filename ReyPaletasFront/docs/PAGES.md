@@ -373,18 +373,29 @@ Form fields:
 
 Name  
 Email  
-Subject  
 Message
 
 Action:
 
 When the form is submitted, the message is sent to the backend service which processes and delivers the email.
 
+Feedback:
+
+- On success, the page shows an inline confirmation banner and a Sileo toast, then clears the form.
+- On validation or network/API errors, it shows an inline alert and a Sileo error toast.
+- On `429 Too Many Requests`, it shows the server message, starts a countdown from `retryAfter`, and disables the submit button until the cooldown ends.
+
+Rate limit:
+
+- The backend allows **3 messages every 15 minutes per IP** by default.
+- The page fetches `/public/contact/rate-limit` on mount and displays the current limit below the submit button (`Puedes enviar hasta 3 mensajes cada 15 minutos`).
+
 Purpose:
 
 - allow users to contact the company
 - centralize inquiries
 - provide a direct communication channel
+- prevent contact form spam and Resend abuse
 
 ## Compras (/compras)
 

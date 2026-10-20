@@ -1,9 +1,14 @@
 const express = require('express');
 const { sendContactEmail } = require('../config/resend');
+const { contactRateLimit, contactRateLimitConfig } = require('../middlewares/contact-rate-limit');
 
 const router = express.Router();
 
-router.post('/contact', async (req, res) => {
+router.get('/contact/rate-limit', (req, res) => {
+  res.json(contactRateLimitConfig);
+});
+
+router.post('/contact', contactRateLimit, async (req, res) => {
   const { name, email, message } = req.body;
 
   if (!name || !email || !message) {

@@ -192,7 +192,38 @@ addToast('info', 'New message available')
 | 401 Unauthorized | "Your session expired. Log in again" |
 | 404 Not Found | "We could not find what you were looking for" |
 | 400 Bad Request | "Invalid data. Check the form" |
+| 429 Too Many Requests | Show the server message and a retry countdown |
 | Validation error | Show specific error per field |
+
+### Rate Limiting (429)
+
+The public contact form is rate limited by the backend (default: 3 messages every 15 minutes per IP).
+
+When the API returns `429`, the client receives:
+
+```json
+{
+  "error": "Has alcanzado el límite de 3 mensajes. Intenta de nuevo en 15 minutos.",
+  "retryAfter": 900,
+  "limit": 3
+}
+```
+
+`services/api.js` copies `retryAfter` and `limit` onto the thrown `Error`. Components should:
+
+- show `error.message` to the user (inline alert and Sileo error toast);
+- start a countdown of `retryAfter` seconds and disable the submit button until it reaches zero;
+- keep the form data so the user does not lose their message.
+
+```jsx
+} catch (err) {
+  if (err.status === 429) {
+    setCooldown(Number(err.retryAfter) || 900)
+    setError(err.message)
+    sileo.error({ title: 'Límite de mensajes alcanzado', description: err.message })
+  }
+}
+```
 
 ---
 
