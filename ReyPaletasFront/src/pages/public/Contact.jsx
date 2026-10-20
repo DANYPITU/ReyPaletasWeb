@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { publicApi } from '../../services/api'
 import { sileo } from 'sileo'
+import { CONTACT } from '../../config/contact'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -129,7 +130,7 @@ export default function Contact() {
 
           <div className="mt-6 pt-6 border-t text-center">
             <p className="text-sm text-gray-500">
-              También puedes llamarnos al <span className="font-medium text-primary">+593 99 804 4059</span>
+              También puedes llamarnos al <span className="font-medium text-primary">{CONTACT.phone}</span>
             </p>
           </div>
         </div>

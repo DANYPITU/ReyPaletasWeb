@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
+import { getWhatsAppLink } from "../../config/contact";
 
 function CartItem({ item, onUpdateQuantity, onRemove }) {
     const total = item.price * item.quantity;
@@ -93,9 +94,7 @@ export default function ShoppingCart() {
         return `*Mi pedido es:*\n\n${cartDetail}\n\n*Total: $${subtotal.toFixed(2)}*`;
     };
 
-    const whatsappNumber = "59399804405";
-    const whatsappMessage = encodeURIComponent(generateWhatsAppMessage());
-    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+    const whatsappLink = getWhatsAppLink(generateWhatsAppMessage());
 
     const pageTitle =
         cartItems.length === 0 ? "Tu carrito está vacío - Rey Paletas" : "Carrito de Compras - Rey Paletas";

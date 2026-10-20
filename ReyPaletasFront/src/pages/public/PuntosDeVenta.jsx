@@ -6,6 +6,7 @@ import PartnerCarousel from '../../components/PartnerCarousel'
 import { Icon } from '@iconify/react'
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import { publicApi } from '../../services/api'
+import { CONTACT } from '../../config/contact'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 
@@ -49,9 +50,9 @@ const benefits = [
 const contactInfo = {
   title: 'Información de contacto',
   items: [
-    { label: 'Email', value: 'info@reypaletas.com', icon: 'iconamoon:email' },
-    { label: 'Teléfono', value: '+593 99 804 4059', icon: 'tabler:phone' },
-    { label: 'Ubicación', value: 'Ambato, Ecuador', icon: 'tdesign:location' }
+    { label: 'Email', value: CONTACT.email, icon: 'iconamoon:email' },
+    { label: 'Teléfono', value: CONTACT.phone, icon: 'tabler:phone' },
+    { label: 'Ubicación', value: CONTACT.location, icon: 'tdesign:location' }
   ]
 }
 

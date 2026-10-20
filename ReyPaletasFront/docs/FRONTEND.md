@@ -108,6 +108,9 @@ Route definitions and navigation structure.
 services  
 API communication with the backend. Includes `api.js` (REST client) and `storage.js` (image uploads via the backend).
 
+config  
+Static project configuration. `contact.js` holds the single source of truth for contact data: email, phone, location, and the WhatsApp number in `wa.me` format (digits only, no `+`). It also exports `getWhatsAppLink(message)` to build the order link.
+
 store  
 Client-side state management.
 
@@ -196,6 +199,8 @@ Product B x1
 Product C x3
 
 The system then redirects to the WhatsApp link.
+
+The destination number is defined once in `src/config/contact.js` (`CONTACT.whatsapp`) and must be written in `wa.me` format: country code plus local number, digits only, without `+`, spaces, dashes, or the leading `0`. The order link is built with `getWhatsAppLink(message)`, which URL-encodes the message and appends it as the `text` query parameter.
 
 ---
 

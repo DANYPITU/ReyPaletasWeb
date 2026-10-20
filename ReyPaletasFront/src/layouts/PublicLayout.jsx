@@ -5,6 +5,7 @@ import SVG from "../assets/logo.svg?react";
 import { AnimatePresence, motion } from 'motion/react'
 import { Icon } from '@iconify/react'
 import { useCart } from '../context/CartContext'
+import { CONTACT, getWhatsAppLink } from '../config/contact'
 
 const socialNetworks = [
   {
@@ -16,22 +17,22 @@ const socialNetworks = [
     icon: "mdi:instagram"
   },
   {
-    link: "",
+    link: getWhatsAppLink(),
     icon: "mdi:whatsapp"
   }
 ]
 
 const contactOptions = [
   {
-    name: "info@reypaletas.com",
+    name: CONTACT.email,
     icon: "iconamoon:email"
   },
   {
-    name: "+593 99 804 4059",
+    name: CONTACT.phone,
     icon: "tabler:phone"
   },
   {
-    name: "Ambato, Ecuador",
+    name: CONTACT.location,
     icon: "tdesign:location"
   },
 ]
