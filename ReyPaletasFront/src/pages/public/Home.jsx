@@ -98,9 +98,9 @@ function HeroSection() {
                     <div className="mb-4">
                         <SVG className="w-full max-w-[220px] md:max-w-[360px] lg:max-w-[440px] h-auto mx-auto fill-white" />
                     </div>
-                    <p className="text-xl md:text-2xl text-white font-display">
+                    <h1 className="text-xl md:text-2xl text-white font-display">
                         {HERO_PHRASE}
-                    </p>
+                    </h1>
                 </motion.div>
             </div >
 

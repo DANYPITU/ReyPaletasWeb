@@ -201,6 +201,7 @@ function AdminLayout() {
       <AdminSidebarContent isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <AdminHeader onMenuClick={() => setSidebarOpen(true)} />
       <motion.main
+        id="main-content"
         className="md:ml-64 p-4 md:p-6"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}

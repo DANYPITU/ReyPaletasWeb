@@ -254,7 +254,7 @@ function PublicLayout() {
         }}
       />
       <Header />
-      <main className="flex-grow">
+      <main id="main-content" className="flex-grow">
         <ScrollToTop />
         <Outlet />
       </main>

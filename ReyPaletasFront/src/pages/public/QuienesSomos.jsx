@@ -212,6 +212,14 @@ function PurposeSection() {
 export default function QuiienesSomos() {
   return (
     <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>Quiénes Somos - Rey Paletas | Nuestra Historia</title>
+        <meta name="description" content="Conoce la historia de Rey Paletas: desde Ambato, Ecuador, llevamos el helado artesanal y las paletas de crema a todo el país." />
+        <meta property="og:title" content="Quiénes Somos - Rey Paletas" />
+        <meta property="og:description" content="Del corazón de Ambato al paladar de todo un país: la historia de Rey Paletas." />
+        <meta property="og:url" content="https://www.reypaletas.com/quienes-somos" />
+        <link rel="canonical" href="https://www.reypaletas.com/quienes-somos" />
+      </Helmet>
       <section className="py-16 md:py-10 qborder bg-gradient-to-b from-primary/5 to-white">
         <div className="max-w-4xl mx-auto px-4 text-center flex flex-col gap-2">
           <motion.h1
