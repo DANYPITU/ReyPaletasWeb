@@ -287,7 +287,7 @@ function AnnouncementTable({ announcements, onEdit, onDelete, filterActive, setF
   const hasFilteredData = filteredAnnouncements.length > 0
 
   return (
-    <div className="bg-white rounded-lg shadow-sm overflow-hidden min-h-[250px] max-h-[400px] overflow-y-auto">
+    <div className="bg-white rounded-lg shadow-sm min-h-[250px] max-h-[400px] overflow-y-auto">
       <table className="w-full">
         <thead className="bg-gray-50 sticky top-0">
           <tr>
